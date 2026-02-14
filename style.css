@@ -235,7 +235,6 @@ html {
 }
 
 #switchforsetting,
-#switchforsound,
 #switchforvisualmode,
 .hamburger,
 .mobiletogglemenu {
@@ -802,6 +801,56 @@ noscript {
     justify-content: flex-start
 }
 
+.dont-press-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 30px;
+    max-width: 220px
+}
+
+.dont-press-btn {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--color-white);
+    background-image: linear-gradient(135deg, #ff4d4f, #ff9a62);
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+    transition: transform .2s ease, box-shadow .2s ease
+}
+
+.dont-press-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .45)
+}
+
+.dont-press-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, .4)
+}
+
+.dont-press-btn.activated {
+    background-image: linear-gradient(135deg, var(--color-light-blue), var(--color-light-purple))
+}
+
+.dont-press-message {
+    font-size: 1.4rem;
+    color: var(--color-ddd-color);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .3s ease, transform .3s ease
+}
+
+.dont-press-message.show {
+    opacity: 1;
+    transform: translateY(0)
+}
+
 .letsTalkBtn {
     position: relative;
     border: none;
@@ -965,6 +1014,10 @@ noscript {
     justify-content: center
 }
 
+.projects-section-div {
+    width: min(90%, 1200px);
+}
+
 .projects-heading,
 .section-heading,
 .skills-heading {
@@ -977,7 +1030,7 @@ noscript {
 .dp img,
 .dp::after,
 .dp::before {
-    width: 300px
+    width: min(300px, 100%)
 }
 
 .projects-heading-article,
@@ -1028,13 +1081,14 @@ noscript {
     box-shadow: 2px 2px 0 inset #8000ff, -2px -2px 0 inset transparent
 }
 
-.dp::after {
-    box-shadow: 2px 2px 0 inset transparent, -2px -2px 0 inset #8000ff
+.dp::after,
+.dp::before {
+    top: 0;
+    bottom: 0;
+    z-index: -2;
+    content: ""
 }
 
-.dp:hover::after {
-    transform: translate(20px, 20px)
-}
 
 .dp:hover::before {
     transform: translate(-20px, -20px)
@@ -1088,8 +1142,7 @@ noscript {
     -webkit-text-fill-color: transparent
 }
 
-.project-box,
-.tech-stack-box {
+.project-box {
     background-image: linear-gradient(to bottom right, var(--tech-stack-box-first-color), var(--tech-stack-box-second-color))
 }
 
@@ -1107,16 +1160,22 @@ noscript {
 }
 
 .tech-stack-box {
-    width: 160px;
-    height: 160px;
+    width: auto;
+    height: auto;
     justify-content: center;
-    border-radius: 30px;
-    border: 1px solid var(--tech-stack-box-border-color);
-    position: relative
+    border-radius: 0;
+    position: relative;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 10px
 }
 
 .tech-stack-box img {
-    width: 80%
+    max-width: 120px;
+    width: auto;
+    height: auto;
+    border-radius: 0
 }
 
 .tech-stack-box:hover .tooltip {
@@ -1131,7 +1190,6 @@ noscript {
     background: linear-gradient(to bottom right, var(--tech-stack-box-first-color), var(--tech-stack-box-second-color));
     border: 1px solid var(--tech-stack-box-border-color);
     padding: 5px 10px;
-    border-radius: 5px;
     justify-content: center;
     transition-duration: .2s;
     pointer-events: none;
@@ -1164,8 +1222,8 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 50px;
-    padding: 50px
+    gap: 70px;
+    padding: 70px 0
 }
 
 .cta:hover:before,
@@ -1175,10 +1233,11 @@ footer {
 
 .project-box {
     width: 100%;
-    height: 400px;
+    min-height: clamp(48rem, 50vw, 64rem);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: stretch;
     transition-duration: .3s;
     border-radius: 30px;
     border: 1px solid var(--tech-stack-box-border-color)
@@ -1186,7 +1245,8 @@ footer {
 
 .info-div {
     width: 50%;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1206,14 +1266,30 @@ footer {
 
 .image-div {
     width: 50%;
-    height: 100%;
-    padding-top: 70px;
-    padding-left: 10px
+    height: auto;
+    min-height: 100%;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-dark-mode);
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px
 }
 
 .image-div img {
-    height: 100%;
-    border-top-left-radius: 30px
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 20px
+}
+
+.placeholder-message {
+    color: var(--color-ddd-color);
+    text-align: center;
+    padding: 0 20px;
+    font-size: 1.6rem;
+    line-height: 1.8;
 }
 
 .ProjectHeading {
@@ -1243,14 +1319,17 @@ footer {
 .github-redirect img {
     width: 45px;
     height: auto;
+    min-height: 100%;
     transition: .3s;
     filter: brightness(2)
 }
 
 .github-redirect:hover img {
-    filter: brightness(4)
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 30px;
+    object-fit: cover
 }
-
 .cta {
     padding: 12px 18px;
     transition: .2s;
@@ -1269,7 +1348,7 @@ footer {
     display: block;
     border-radius: 50px;
     background: #2b2f4e;
-    width: 45px;
+    width: 125px;
     height: 45px;
     transition: .3s
 }
@@ -1360,7 +1439,7 @@ footer {
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: 65vh;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -1381,12 +1460,12 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100px
+    height: 70px
 }
 
 .getintouch-heading,
 .logos {
-    height: 80px;
+    height: 60px;
     width: 100%;
     display: flex
 }
@@ -1477,7 +1556,7 @@ footer {
 }
 
 .footer-avatar-container {
-    width: 220px;
+    width: 320px;
     margin-top: 20px;
     position: relative;
     display: flex;
@@ -1486,7 +1565,7 @@ footer {
 }
 
 .footer-avatar-img {
-    width: 100%;
+    width: 110%;
     z-index: 2
 }
 
@@ -1790,7 +1869,7 @@ footer {
 
     .project-box {
         flex-direction: column;
-        height: 800px
+        min-height: 90rem
     }
 
     .image-div,
@@ -1836,6 +1915,12 @@ footer {
         align-items: flex-start;
         justify-content: flex-start;
         gap: 20px
+    }
+
+    .dont-press-wrapper {
+        margin-left: 0;
+        max-width: 100%;
+        width: 100%
     }
 
     .setting-container {
@@ -1904,7 +1989,7 @@ footer {
     }
 
     .project-box {
-        height: 550px
+        min-height: 65rem
     }
 
     .info-div {
